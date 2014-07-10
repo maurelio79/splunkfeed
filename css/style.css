@@ -1,16 +1,16 @@
+@font-face {
+  font-family: 'Arvo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arvo'), url(MViwy4K6e56oHcyeMzjbCQ.ttf) format('truetype');
+}
+
 * {
     margin: 0;
     padding: 0;
     list-style-type: none;
     font-size: medium;
     font-family: 'Arvo', serif;
-}
-
-@font-face {
-  font-family: 'Arvo';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Arvo'), url(MViwy4K6e56oHcyeMzjbCQ.ttf) format('truetype');
 }
 
 .ui-grid-solo {
