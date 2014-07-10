@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    fon-size: medium;
+    font-family: 'Arvo', serif;
+}
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arvo'), url(MViwy4K6e56oHcyeMzjbCQ.ttf) format('truetype');
+}
+
+.ui-grid-solo {
+	text-align: center;
+}
+
+.ui-grid-solo img {
+	border: 1px solid #f7931e;
+}
+
+.rss_content, .article_content {
+	width: 97%;
+    margin: auto;
+    background-color: #fff;
+    -moz-box-shadow: 0 0 5px #888;
+    -webkit-box-shadow: 0 0 5px#888;
+    box-shadow: 0 0 5px #888;
+    padding: 5px;
+    color: #666;
+    font-size: medium;
+    margin-bottom: 8px;
+	border: 1px solid #5a8b4b;
+	word-wrap: break-word;
+    }
+
+.article_content h1{
+    color: #5a8b4b;
+    font-size: large;
+    margin: 5px;
+    margin-left: 0;
+}
+
+.article_content h2{
+    color: #5a8b4b;
+    font-size: large;
+    margin: 5px;
+    margin-left: 0;
+
+}
+
+.article_content h3{
+    color: #5a8b4b;
+    font-size: medium;
+    margin: 5px;
+    margin-left: 0;
+}
+
+.splunk-header {
+	height: 42px;
+}
+
+.splunk-footer {
+	height: 42px;
+}
+
+#results {
+    padding: 5px;
+}
+
+.splunk-footer a:link {
+	line-height: 36px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	display: block;
+	background: url('../img/icon-Splunk.png') no-repeat;
+
+}
+.ui-btn-right-splunk {
+	background-image: url("images/splunk-grid.png");
+	width: 32px;
+	height: 32px;
+}
+
+h3.splunk-title {
+	text-align: center;
+}
+
+#popupPanel-popup {
+    right: auto !important;
+    left: 0 !important;
+}
+#popupPanel {
+    width: 280px;
+    border: 1px solid #000;
+    border-right: none;
+	-webkit-box-shadow: 5px 0px 5px -2px #888 ;
+	-moz-box-shadow: 5px 0px 5px -2px #888;
+	box-shadow: 5px 0px 5px -2px #888;
+    background: rgba(0,0,0,.5);
+    margin:  0 -1px;
+	color: #fff;
+}
+#popupPanel ul {
+    margin: 1em 5px;
+}
+
+#popupPanel ul li{
+    margin-top: 2px;
+	line-height: 24px;
+}
+

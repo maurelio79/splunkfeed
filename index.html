@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <title>Splunk Feed</title>
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+        <link rel="stylesheet" href="css/splunk-feed.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	    <script src="js/jquery.mobile-1.3.2.min.js"></script>
+        <script type="text/javascript">
+            function RemoveBaseUrl(url) {
+            /*
+             * Replace base URL in given string, if it exists, and return the result.
+             *
+             * e.g. "http://localhost:8000/api/v1/blah/" becomes "/api/v1/blah/"
+             *      "/api/v1/blah/" stays "/api/v1/blah/"
+             */
+                var baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/;
+                var result = "";
+                var match = baseUrlPattern.exec(url);
+
+                if (match != null) {
+                    result = match[0];
+                }
+
+                if (result.length > 0) {
+                    url = url.replace(result, "");
+                }
+                return url;
+            }
+        </script>
+
+        <script type="text/javascript">
+            $(document).on('pageinit', '#main-page', function(event){
+            //jQuery(document).ready(function($){
+                $('img').each(function(){
+                    var width = $(this).attr('width')
+                    var height = $(this).attr('height')
+                    $(this).removeAttr('width')
+                    $(this).removeAttr('height')
+                    $(this).attr('width', width / 3)
+                    $(this).attr('height', height / 3);
+                    });
+            });
+        </script>
+        <script type='text/javascript'>
+            // Parses reslideed response and extracts
+            // the title, links, and text of each news story.
+            function splunk_feed(o){
+                var items = o.query.results.item;
+                var output = '';
+                var no_items=items.length;
+                for(var i=0;i<no_items;i++){
+                    var title = items[i].title;
+                    var temp_link = items[i].link;
+                    var link = RemoveBaseUrl(temp_link);
+                    var desc = items[i].description;
+                    var category = items[i].category;
+                    var pubDate = items[i].pubDate;
+                    output += "<div class='rss_content'><h3><a href='article.html' class='title' data-ajax='false' id='" + link + "'>" + title + "</a></h3><p>" + desc + "</p></div>";
+          }
+            // Place news stories in div tag
+            //document.getElementById('results').innerHTML = output;
+            $("#results").append(output);
+        }
+
+        </script>
+    </head>
+    <body>
+    <div data-role="page" data-theme="f" id="main-page">
+        <script type="text/javascript">
+            $( "#main-page").on('pagecreate',function(event){
+				$(".rss_content").on("click", ".title", function(event, ui) {
+					article = $(this).attr("id")
+					title = $(this).text()
+					console.log(title)
+					window.sessionStorage.setItem("article", article)
+					window.sessionStorage.setItem("title", title)
+				});
+			});
+        </script>
+		<div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
+			<h1>Splunk Feed</h1>
+        </div>
+        <div  data-role="content" data-theme="f" id="results">
+        <!-- The YQL statment will be assigned to src. -->
+            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com%2Ffeed%2F%22&format=json&diagnostics=true&callback=splunk_feed"></script>
+        </div>
+        <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
+            <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
+        </div>
+     </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+     </script>
+    </body>
+</html>
