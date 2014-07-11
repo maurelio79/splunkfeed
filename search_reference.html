@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Splunk Feed</title>
         <link rel="stylesheet" href="themes/splunk-feed.min.css" />
@@ -32,39 +32,31 @@
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
         <script type="text/javascript">
-            $(document).on('pageinit', '#article-page', function(event){
-                title = window.sessionStorage.getItem("title");
-                temp_article = window.sessionStorage.getItem("article");
-                article = temp_article.replace("/", "%2F");
+            $(document).on('pageinit', '#search-page', function(event){
+                temp_doc = "/Documentation/Splunk/latest/SearchReference/SearchCheatsheet"
+                doc = temp_doc.replace("/", "%2F");
+                console.log(temp_doc)
                 $.ajax({
                     type: 'GET',
-                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com" + article + "%22%20%20and%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22fullPost%22%5D%2F*'",
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fdocs.splunk.com%2FDocumentation%2FSplunk%2Flatest%2FSearchReference%2FSearchCheatsheet%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Ftable'",
                     dataType: 'html',
                     success: function(data) {
                         if (data) {
                             var textResults = $(data).find('results');
-                            $('.article_content').append( textResults );
-                            $('#top-title').html(title);
-                            $('img').each(function(){
-                                var width = $(this).attr('width')
-                                var height = $(this).attr('height')
-                                $(this).removeAttr('width')
-                                $(this).removeAttr('height')
-                                $(this).attr('width', '90%')
-                                $(this).css('display', 'block')
-                                $(this).css('margin', 'auto');
-
-                            });
+                            $('.search_content').append( textResults );
                         }
                     }
                 });
              });
         </script>
     </head>
+    <style type="text/css">
+        table{ margin-bottom: 5px;}
+    </style>
     <body>
-    <div data-role="page" data-theme="f" id="article-page">
+    <div data-role="page" data-theme="f" id="search-page">
 		<div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
-           <h1 id="top-title">Splunk Feed</h1>
+           <h1>Search Cheat Sheet</h1>
            <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
         </div>
             <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
@@ -76,9 +68,9 @@
                     </ul>
             </div>
 
-        <div  data-role="content" data-theme="f" id="results">
+        <div data-role="content" data-theme="f" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <div class="article_content">
+            <div class="search_content">
 
             </div>
         </div>

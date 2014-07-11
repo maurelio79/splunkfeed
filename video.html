@@ -55,35 +55,19 @@
             }
         </script>
 
-        <script type="text/javascript">
-            $(document).on('pageinit', '#main-page', function(event){
-            //jQuery(document).ready(function($){
-                $('img').each(function(){
-                    var width = $(this).attr('width')
-                    var height = $(this).attr('height')
-                    $(this).removeAttr('width')
-                    $(this).removeAttr('height')
-                    $(this).attr('width', '90%');
-                    //$(this).attr('height', height / 3);
-                    });
-            });
-        </script>
-
         <script type='text/javascript'>
             // Parses reslideed response and extracts
             // the title, links, and text of each news story.
-            function splunk_feed(o){
-                var items = o.query.results.item;
+            function splunk_video(o){
+                var items = o.query.results.video;
                 var output = '';
                 var no_items=items.length;
                 for(var i=0;i<no_items;i++){
                     var title = items[i].title;
-                    var temp_link = items[i].link;
-                    var link = RemoveBaseUrl(temp_link);
-                    var desc = items[i].description;
-                    var category = items[i].category;
-                    var pubDate = items[i].pubDate;
-                    output += "<div class='rss_content'><h3><a href='article.html' class='title' data-ajax='false' id='" + link + "'>" + title + "</a></h3><p>" + desc + "</p></div>";
+                    var url = items[i].url;
+                    var content = items[i].content;
+                    var thumb = items[i].thumbnails.thumbnail[1].content;
+                    output += "<div class='video_content'><span class='img_container'><img src='" + thumb + "' /></span><span class='text_container'><h3><a href='" + url + "'class='title' data-ajax='false'>" + title + "</a></h3><p>" + content + "</p></span></div>";
           }
             // Place news stories in div tag
             //document.getElementById('results').innerHTML = output;
@@ -96,16 +80,16 @@
     <div data-role="page" data-theme="f" id="main-page">
         <script type="text/javascript">
             $( "#main-page").on('pagecreate',function(event){
-				$(".rss_content").on("click", ".title", function(event, ui) {
-					article = $(this).attr("id")
-					title = $(this).text()
-					window.sessionStorage.setItem("article", article)
-					window.sessionStorage.setItem("title", title)
-				});
-			});
+                $(".rss_content").on("click", ".title", function(event, ui) {
+                    article = $(this).attr("id")
+                    title = $(this).text()
+                    window.sessionStorage.setItem("article", article)
+                    window.sessionStorage.setItem("title", title)
+                });
+            });
         </script>
-		<div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
-			<h1>Splunk Feed</h1>       
+        <div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
+            <h1>Splunk Video</h1>       
             <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
         </div>
             <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
@@ -119,7 +103,7 @@
 
         <div  data-role="content" data-theme="f" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com%2Ffeed%2F%22&format=json&diagnostics=true&callback=splunk_feed"></script>
+            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20youtube.user.videos%20where%20id%3D%22splunkvideos%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=splunk_video"></script>
         </div>
         <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->

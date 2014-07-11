@@ -21,8 +21,9 @@
 	border: 1px solid #f7931e;
 }
 
-.rss_content, .article_content {
+.rss_content, .article_content, .video_content {
 	width: 97%;
+    height: auto;
     margin: auto;
     background-color: #fff;
     -moz-box-shadow: 0 0 5px #888;
@@ -90,11 +91,12 @@ h3.splunk-title {
 }
 
 #popupPanel-popup {
-    right: auto !important;
-    left: 0 !important;
+    /*right: auto !important;
+    left: 0 !important;*/
+    right: 5px;
 }
 #popupPanel {
-    width: 280px;
+    width: 240px;
     border: 1px solid #000;
     border-right: none;
 	-webkit-box-shadow: 5px 0px 5px -2px #888 ;
@@ -113,3 +115,13 @@ h3.splunk-title {
 	line-height: 24px;
 }
 
+.search_content {
+    word-wrap: break-word;;
+    
+}
+
+.search_content td {
+    padding: 5px;
+    border: 1px solid #5a8b4b;
+    
+}
