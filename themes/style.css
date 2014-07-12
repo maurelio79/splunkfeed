@@ -21,7 +21,7 @@
 	border: 1px solid #f7931e;
 }
 
-.rss_content, .article_content, .video_content {
+.rss_content, .article_content, .video_content, .answer_content {
 	width: 97%;
     height: auto;
     margin: auto;
@@ -59,6 +59,11 @@
     margin-left: 0;
 }
 
+.category {
+    font-size: small;
+    color: #5a8b4b;
+    font-style: italic;
+}
 .splunk-header {
 	height: 42px;
 }
@@ -71,15 +76,6 @@
     padding: 5px;
 }
 
-.splunk-footer a:link {
-	line-height: 36px;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	display: block;
-	background: url('../img/icon-Splunk.png') no-repeat;
-
-}
 .ui-btn-right-splunk {
 	background-image: url("images/splunk-grid.png");
 	width: 32px;
