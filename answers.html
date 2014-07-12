@@ -32,25 +32,7 @@
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
-        <script type="text/javascript">
-            document.addEventListener("deviceready", onDeviceReady, false);
-                function onDeviceReady() {
-                    // Now safe to use device APIs
-                    navigator.splashscreen.hide()
-                }
-        </script>
-
-        <script type="text/javascript">
-            function exit(){
-                if (navigator.app) {
-                        navigator.app.exitApp();
-                    }
-                else if (navigator.device) {
-                        navigator.device.exitApp();
-                    }
-            }
-        </script>
-
+        
         <script type="text/javascript">
             function RemoveBaseUrl(url) {
             /*
@@ -75,7 +57,7 @@
         </script>
 
         <script type="text/javascript">
-            $(document).on('pageinit', '#main-page', function(event){
+            $(document).on('pageinit', '#answers-page', function(event){
             //jQuery(document).ready(function($){
                 $('img').each(function(){
                     var width = $(this).attr('width')
@@ -91,63 +73,60 @@
         <script type='text/javascript'>
             // Parses reslideed response and extracts
             // the title, links, and text of each news story.
-            function splunk_feed(o){
-                var items = o.query.results.item;
+            function splunk_answers(o){
+                var items = o.query.results.a;
                 var output = '';
                 var no_items=items.length;
                 for(var i=0;i<no_items;i++){
-                    var title = items[i].title;
-                    var temp_link = items[i].link;
+                    var title = items[i].content;
+                    var temp_link = items[i].href;
                     var link = RemoveBaseUrl(temp_link);
-                    var desc = items[i].description;
-                    var category = items[i].category;
-                    var pubDate = items[i].pubDate;
-                    output += "<div class='rss_content'><h3><a href='article.html' class='title' data-ajax='false' id='" + link + "'>" + title + "</a></h3><p>" + desc + "</p></div>";
-                }
+                    output += "<li><a href='answer.html' id='" + link + "' data-ajax='false' class='title'>" + title + "</a></li>";
+          }
             // Place news stories in div tag
             //document.getElementById('results').innerHTML = output;
-            $("#results").append(output);
-            }
-
+            $("#results-ul").append(output);
+        }
         </script>
+
     </head>
     <body>
-    <div data-role="page" data-theme="f" id="main-page">
+    <div data-role="page" data-theme="f" id="answers-page">
         <script type="text/javascript">
-            $( "#main-page").on('pagecreate',function(event){
-				$(".rss_content").on("click", ".title", function(event, ui) {
-					article = $(this).attr("id")
-					title = $(this).text()
-					window.sessionStorage.setItem("article", article)
-					window.sessionStorage.setItem("title", title)
-				});
-			});
+            $( "#answers-page").on('pagecreate',function(event){
+                $("#results-ul").on("click", ".title", function(event, ui) {
+                    answer = $(this).attr("id")
+                    title = $(this).text()
+                    window.sessionStorage.setItem("answer", answer)
+                    window.sessionStorage.setItem("title", title)
+                });
+            });
         </script>
-
         <div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
-            <h1>Splunk Feed</h1>       
+            <h1>Splunk Answers</h1>       
             <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
         </div>
-        <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
-            <h3>Menu</h3>
-                <ul data-role='listview'>
-                <li><a href='index.html' data-ajax="false">Home</a></li>
-                <li><a href='search_reference.html' data-ajax="false">Search Cheat Sheet</a></li>
-                <li><a href='answers.html' data-ajax="false">Splunk Answers</a></li>
-                <li><a href='video.html' data-ajax="false">Splunk on Youtube</a></li>
-                <!--<li><a href='' data-ajax="false" onclick="exit()">Exit</a></li>-->
-                </ul>
-        </div>
+            <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
+                    <h3>Menu</h3>
+                    <ul data-role='listview'>
+                    <li><a href='index.html' data-ajax="false">Home</a></li>
+                    <li><a href='search_reference.html' data-ajax="false">Search Cheat Sheet</a></li>
+                    <li><a href='answers.html' data-ajax="false">Splunk Answers</a></li>
+                    <li><a href='video.html' data-ajax="false">Splunk on Youtube</a></li>
+                    <!--<li><a href='' data-ajax="false" onclick="exit()">Exit</a></li>-->
+                    </ul>
+            </div>
 
         <div  data-role="content" data-theme="f" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com%2Ffeed%2F%22&format=json&diagnostics=true&callback=splunk_feed"></script>
-        </div>
+            <ul data-role="listview" id="results-ul" data-theme="e">
 
+            </ul>
+            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3Dnewest%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json&diagnostics=true&callback=splunk_answers"></script>
+        </div>
         <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
-
      </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
