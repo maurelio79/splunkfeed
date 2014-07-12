@@ -73,7 +73,13 @@
                 return url;
             }
         </script>
-
+<!--
+        <script type="text/javascript">
+        $( document ).on( "pagebeforeload", function( event ) {
+            $.mobile.loading("show");
+        } );
+        </script>
+-->
         <script type="text/javascript">
             $(document).on('pageinit', '#main-page', function(event){
             //jQuery(document).ready(function($){
