@@ -28,16 +28,57 @@
         <link rel="stylesheet" href="themes/splunk-feed.min.css" />
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
         <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.3.min.css" />
-        <link rel="stylesheet" href="themes/style.css" />
+        
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
+        <link rel="stylesheet" href="themes/style.css" />
+
         <script type="text/javascript">
-            document.addEventListener("deviceready", onDeviceReady, false);
-                function onDeviceReady() {
-                    // Now safe to use device APIs
-                    navigator.splashscreen.hide()
-                }
+            $(document).on('pageshow', function(event){
+                $.mobile.loading('show');  
+            })
+            
+            $(document).on('pageinit', '#main-page', function(event){
+                $.ajax({
+                    type: 'GET',
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com%2Ffeed%2F%22&format=json",
+
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data) {
+                            $.mobile.loading('hide');
+                            //var textResults = $.parseJSON(data);
+                            //items = query.results.item;
+                            items = data.query.results.item;
+                            var output = '';
+                            for(var i=0;i<items.length;i++){
+                                var title = items[i].title;
+                                var temp_link = items[i].link;
+                                var link = RemoveBaseUrl(temp_link);
+                                var desc = items[i].description;
+                                output += "<div class='rss_content'><h3><a href='article.html' class='title' data-ajax='false' id='" + link + "'>" + title + "</a></h3><p>" + desc + "</p></div>";
+                            }
+                            $('#results').append( output );
+
+                            $('img').each(function(){
+                                var width = $(this).attr('width')
+                                var height = $(this).attr('height')
+                                $(this).removeAttr('width')
+                                $(this).removeAttr('height')
+                                $(this).attr('width', '90%');
+                            });
+
+                            $(".rss_content").on("click", ".title", function(event, ui) {
+                                article = $(this).attr("id")
+                                title = $(this).text()
+                                window.sessionStorage.setItem("article", article)
+                                window.sessionStorage.setItem("title", title)
+                            });
+                        }
+                    }
+                });
+             });
         </script>
 
         <script type="text/javascript">
@@ -73,62 +114,10 @@
                 return url;
             }
         </script>
-<!--
-        <script type="text/javascript">
-        $( document ).on( "pagebeforeload", function( event ) {
-            $.mobile.loading("show");
-        } );
-        </script>
--->
-        <script type="text/javascript">
-            $(document).on('pageinit', '#main-page', function(event){
-            //jQuery(document).ready(function($){
-                $('img').each(function(){
-                    var width = $(this).attr('width')
-                    var height = $(this).attr('height')
-                    $(this).removeAttr('width')
-                    $(this).removeAttr('height')
-                    $(this).attr('width', '90%');
-                    //$(this).attr('height', height / 3);
-                    });
-            });
-        </script>
 
-        <script type='text/javascript'>
-            // Parses reslideed response and extracts
-            // the title, links, and text of each news story.
-            function splunk_feed(o){
-                var items = o.query.results.item;
-                var output = '';
-                var no_items=items.length;
-                for(var i=0;i<no_items;i++){
-                    var title = items[i].title;
-                    var temp_link = items[i].link;
-                    var link = RemoveBaseUrl(temp_link);
-                    var desc = items[i].description;
-                    var category = items[i].category;
-                    var pubDate = items[i].pubDate;
-                    output += "<div class='rss_content'><h3><a href='article.html' class='title' data-ajax='false' id='" + link + "'>" + title + "</a></h3><p>" + desc + "</p></div>";
-                }
-            // Place news stories in div tag
-            //document.getElementById('results').innerHTML = output;
-            $("#results").append(output);
-            }
-
-        </script>
     </head>
     <body>
     <div data-role="page" data-theme="f" id="main-page">
-        <script type="text/javascript">
-            $( "#main-page").on('pagecreate',function(event){
-				$(".rss_content").on("click", ".title", function(event, ui) {
-					article = $(this).attr("id")
-					title = $(this).text()
-					window.sessionStorage.setItem("article", article)
-					window.sessionStorage.setItem("title", title)
-				});
-			});
-        </script>
 
         <div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
             <h1>Splunk Feed</h1>       
@@ -147,7 +136,7 @@
 
         <div  data-role="content" data-theme="f" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D%22http%3A%2F%2Fblogs.splunk.com%2Ffeed%2F%22&format=json&diagnostics=true&callback=splunk_feed"></script>
+            
         </div>
 
         <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">

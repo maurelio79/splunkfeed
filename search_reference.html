@@ -32,6 +32,10 @@
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
         <script type="text/javascript">
+            $(document).on('pageshow', function(event){
+                $.mobile.loading('show');  
+            })
+
             $(document).on('pageinit', '#search-page', function(event){
                 temp_doc = "/Documentation/Splunk/latest/SearchReference/SearchCheatsheet"
                 doc = temp_doc.replace("/", "%2F");
@@ -42,6 +46,7 @@
                     dataType: 'html',
                     success: function(data) {
                         if (data) {
+                            $.mobile.loading('hide');
                             var textResults = $(data).find('results');
                             $('.search_content').append( textResults );
                         }

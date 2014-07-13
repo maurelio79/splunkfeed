@@ -1,16 +1,18 @@
 @font-face {
-  font-family: 'Arvo';
+  font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Arvo'), url(MViwy4K6e56oHcyeMzjbCQ.ttf) format('truetype');
+  src: local('Droid Sans'), local('DroidSans'), url(DroisSans.ttf) format('truetype');
 }
+
+
 
 * {
     margin: 0;
     padding: 0;
     list-style-type: none;
     font-size: medium;
-    font-family: 'Arvo', serif;
+    font-family: 'Droid Sans', serif;
 }
 
 .ui-grid-solo {
@@ -37,6 +39,10 @@
 	word-wrap: break-word;
     }
 
+.question_body, .comments_container, .answer_body {
+    word-wrap: break-word;
+}
+
 .article_content h1{
     color: #5a8b4b;
     font-size: large;
@@ -52,7 +58,7 @@
 
 }
 
-.article_content h3{
+.article_content, .rss_content h3{
     color: #5a8b4b;
     font-size: medium;
     margin: 5px;
@@ -62,6 +68,7 @@
 .search_content table {
     margin-bottom: 5px;
 }
+
 .category {
     font-size: small;
     color: #5a8b4b;
@@ -124,3 +131,15 @@ h3.splunk-title {
     border: 1px solid #5a8b4b;
     
 }
+
+.ui-loader-default h1 {
+    color: #5a8b4b;
+    font-size: large;
+    width: auto;
+    height: auto;
+    font-weight: bold;
+}
+
+#results-ul li a:link { font-family: 'Droid Sans', serif; }
+#results-ul li a:hover { font-family: 'Droid Sans', serif; }
+#results-ul li a:visited { font-family: 'Droid Sans', serif; }

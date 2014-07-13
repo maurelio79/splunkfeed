@@ -32,6 +32,10 @@
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
         <script type="text/javascript">
+            $(document).on('pageshow', function(event){
+                $.mobile.loading('show');  
+            })
+            
             $(document).on('pageinit', '#answer-page', function(event){
                 title = window.sessionStorage.getItem("title");
                 temp_answer = window.sessionStorage.getItem("answer");
@@ -43,10 +47,14 @@
                     dataType: 'html',
                     success: function(data) {
                         if (data) {
+                            $.mobile.loading('hide');
                             var textResults = $(data).find('results');
                             $('.answer_content').append( textResults );
                             $('#top-title').html(title);
                             $('.tabsA').each(function(){
+                                $(this).remove()
+                            });
+                            $('.post-tag').each(function(){
                                 $(this).remove()
                             });
                             $('#fmanswer').remove();

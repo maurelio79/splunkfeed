@@ -32,7 +32,46 @@
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
-        
+        <script type="text/javascript">
+            $(document).on('pageshow', function(event){
+                $.mobile.loading('show');  
+            })
+            
+            $(document).on('pageinit', '#answers-page', function(event){
+                $.ajax({
+                    type: 'GET',
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3Dnewest%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json",
+
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data) {
+                            $.mobile.loading('hide');
+                            //var textResults = $.parseJSON(data);
+                            //items = query.results.item;
+                            items = data.query.results.a;
+                            var output = ''
+                            for(var i=0;i<items.length;i++){
+                                var title = items[i].content;
+                                var temp_link = items[i].href;
+                                var link = RemoveBaseUrl(temp_link);
+                                output += "<li><a href='answer.html' id='" + link + "' data-ajax='false' class='title ui-btn ui-btn-icon-right ui-icon-carat-r'>" + title + "</a></li>";
+                            }
+
+                            $('#results-ul').append( output );
+                            $("#results").trigger("create");
+
+                            $("#results-ul").on("click", "a", function(event, ui) {
+                                answer = $(this).attr("id")
+                                title = $(this).text()
+                                window.sessionStorage.setItem("answer", answer)
+                                window.sessionStorage.setItem("title", title)
+                            });
+                        }
+                    }
+                });
+             });
+        </script>
+
         <script type="text/javascript">
             function RemoveBaseUrl(url) {
             /*
@@ -55,57 +94,15 @@
                 return url;
             }
         </script>
-
-        <script type="text/javascript">
-            $(document).on('pageinit', '#answers-page', function(event){
-            //jQuery(document).ready(function($){
-                $('img').each(function(){
-                    var width = $(this).attr('width')
-                    var height = $(this).attr('height')
-                    $(this).removeAttr('width')
-                    $(this).removeAttr('height')
-                    $(this).attr('width', '90%');
-                    //$(this).attr('height', height / 3);
-                    });
-            });
-        </script>
-
-        <script type='text/javascript'>
-            // Parses reslideed response and extracts
-            // the title, links, and text of each news story.
-            function splunk_answers(o){
-                var items = o.query.results.a;
-                var output = '';
-                var no_items=items.length;
-                for(var i=0;i<no_items;i++){
-                    var title = items[i].content;
-                    var temp_link = items[i].href;
-                    var link = RemoveBaseUrl(temp_link);
-                    output += "<li><a href='answer.html' id='" + link + "' data-ajax='false' class='title'>" + title + "</a></li>";
-          }
-            // Place news stories in div tag
-            //document.getElementById('results').innerHTML = output;
-            $("#results-ul").append(output);
-        }
-        </script>
-
     </head>
     <body>
     <div data-role="page" data-theme="f" id="answers-page">
-        <script type="text/javascript">
-            $( "#answers-page").on('pagecreate',function(event){
-                $("#results-ul").on("click", ".title", function(event, ui) {
-                    answer = $(this).attr("id")
-                    title = $(this).text()
-                    window.sessionStorage.setItem("answer", answer)
-                    window.sessionStorage.setItem("title", title)
-                });
-            });
-        </script>
+       
         <div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
             <h1>Splunk Answers</h1>       
             <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
         </div>
+        
             <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
                     <h3>Menu</h3>
                     <ul data-role='listview'>
@@ -122,8 +119,8 @@
             <ul data-role="listview" id="results-ul" data-theme="e">
 
             </ul>
-            <script src="https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3Dnewest%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json&diagnostics=true&callback=splunk_answers"></script>
         </div>
+
         <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
