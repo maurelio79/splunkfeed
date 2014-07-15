@@ -57,8 +57,8 @@
         <gap:plugin name="org.apache.cordova.dialogs" version="0.2.6"/>
     -->
         <gap:platform name="android" />
-        <gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.0" />
-        
+        <gap:plugin name="org.apache.cordova.inappbrowser" />
+
     <!-- Define app icon for each platform. -->
     <icon src="img/icon.jpg" />
   
