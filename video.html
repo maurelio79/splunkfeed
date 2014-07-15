@@ -50,13 +50,17 @@
                             var output = '';
                             for(var i=0;i<items.length;i++){
                                 var title = items[i].title;
-                                var url = items[i].url;
+                                var url = items[i].files.file[0].content;
                                 var thumb = items[i].thumbnails.thumbnail[1].content;
                                 output += "<div class='video_content'>\
                                 <table>\
                                     <tr>\
-                                    <td><img src='" + thumb + "' /></td>\
-                                    <td valign='top'><h3><a href='" + url + "'class='title' data-ajax='false'>" + title + "</a></h3></td>\
+                                        <td><img src='" + thumb + "' /></td>\
+                                        <td valign='top'>\
+                                        <h3>\
+                                        <a href='#' onclick=\"window.open('" + url + "','_system');\" class='title' data-ajax='false'>" + title + "</a>\
+                                        </h3>\
+                                        </td>\
                                     </tr>\
                                 </table>\
                             </div>";

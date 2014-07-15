@@ -55,11 +55,13 @@
                             $('img').each(function(){
                                 var width = $(this).attr('width')
                                 var height = $(this).attr('height')
-                                $(this).removeAttr('width')
-                                $(this).removeAttr('height')
-                                $(this).attr('width', '90%')
-                                $(this).css('display', 'block')
-                                $(this).css('margin', 'auto');
+                                if (width > 300) {
+                                    $(this).removeAttr('width')
+                                    $(this).removeAttr('height')
+                                    $(this).attr('width', '90%')
+                                    $(this).css('display', 'block')
+                                    $(this).css('margin', 'auto');
+                                }
                             });
                         }
                     }
