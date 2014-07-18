@@ -35,29 +35,21 @@
             $(document).on('pageshow', function(event){
                 $.mobile.loading('show');  
             })
-            
-            $(document).on('pageinit', '#answer-page', function(event){
+
+            $(document).on('pageinit', '#new-page', function(event){
                 title = window.sessionStorage.getItem("title");
-                temp_answer = window.sessionStorage.getItem("answer");
-                answer = temp_answer.replace("/", "%2F");
+                temp_new = window.sessionStorage.getItem("new");
+                one_new = temp_new.replace("/", "%2F");
                 $('#top-title').html(title);
                 $.ajax({
                     type: 'GET',
-                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com" + answer + "%22%20%20and%20xpath%3D'%2F%2Fdiv%5B%40id%3D%22CALeft%22%5D%2F*'",
-
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22https%3A%2F%2Fwww.splunk.com" + one_new + "%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22container%22%5D'",
                     dataType: 'html',
                     success: function(data) {
                         if (data) {
                             $.mobile.loading('hide');
                             var textResults = $(data).find('results');
-                            $('.answer_content').append( textResults );
-                            $('.tabsA').each(function(){
-                                $(this).remove()
-                            });
-                            $('.post-tag').each(function(){
-                                $(this).remove()
-                            });
-                            $('#fmanswer').remove();
+                            $('.new_content').append( textResults );
                         }
                     }
                 });
@@ -65,7 +57,7 @@
         </script>
     </head>
     <body>
-    <div data-role="page" data-theme="f" id="answer-page">
+    <div data-role="page" data-theme="f" id="new-page">
 		<div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
            <h1 id="top-title"></h1>
            <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
@@ -84,13 +76,13 @@
 
         <div  data-role="content" data-theme="f" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <div class="answer_content">
+            <div class="new_content">
 
             </div>
         </div>
 
         <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
-           <!-- <a href="#" data-transition="turn" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-left ui-corner-all" onclick="window.history.back();">Back</a>-->
+            <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
      </div>
     <script type="text/javascript" src="cordova.js"></script>
@@ -98,6 +90,5 @@
     <script type="text/javascript">
         app.initialize();
      </script>
-     <script type="text/javascript" src="js/recaptcha_ajax.js"></script>
     </body>
 </html>
