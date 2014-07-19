@@ -34,7 +34,12 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        //document.addEventListener("menubutton", this.onMenuButton, false);
     },
+    //Calling function for menu
+    //onMenuButton:  function(){
+    //    app.menuPressed();
+    //},
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
@@ -45,5 +50,14 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    }
+    },
+    //Actually display the menu
+    /*menuPressed: function(){
+        var menu = $('#menu').css('display');
+        if (menu == 'none') {
+            $("#menu").css('display', 'block');    
+        } else {
+            $("#menu").css('display', 'none');    
+        }
+    }*/
 };
