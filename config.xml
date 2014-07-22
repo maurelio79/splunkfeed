@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.splunkit"
-        version   = "1.1.0">
+        version   = "1.2.0">
 
     <name>Splunk it!</name>
 
@@ -58,6 +58,7 @@
     -->
         <gap:platform name="android" />
         <gap:plugin name="org.apache.cordova.inappbrowser" />
+        <gap:plugin name="org.apache.cordova.network-information" version="0.2.7" />
 
     <!-- Define app icon for each platform. -->
     <icon src="img/icon.jpg" />
