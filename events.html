@@ -24,14 +24,17 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>Splunk Feed</title>
+        <title>Splunk Events</title>
         <link rel="stylesheet" href="themes/splunk-feed.min.css" />
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
         <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.3.min.css" />
         <link rel="stylesheet" href="themes/style.css" />
+
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/yui-min.js"></script>
+        <script src="js/custom.js"></script>
+
         <script type="text/javascript">
             $(document).on('pageshow', function(event){
                 $.mobile.loading('show');  
@@ -40,21 +43,21 @@
             $(document).on('pageinit', '#events-page', function(event){
                 $.ajax({
                     type: 'GET',
-                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.splunk.com%2Fpage%2Fevents%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40id%3D%22articleColumn%22%5D%2Fh2%2Fa'",
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fwww.splunk.com%2Fpage%2Fevents%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40id%3D%22articleColumn%22%5D%2Fh2%2Fa'&format=json",
 
                     dataType: 'json',
                     success: function(data) {
                         if (data) {
                             $.mobile.loading('hide');
                             items = data.query.results.a;
-                            console.log(items);
+                            //var textResults = $(data).find('results');
                             var output = ''
                             for(var i=0;i<items.length;i++){
-                                var title = items[i].content;
+                                var temp_title = items[i].content;
+                                var title = temp_title.substr(0, 50) + "...";
                                 var link = items[i].href;
-                                console.log(title);
                                 //var link = RemoveBaseUrl(temp_link);
-                                output += "<li><a href='#' onclick=\"window.open('" + link + "', '_system')\" id='" + link + "' data-ajax='false' class='title ui-btn ui-btn-icon-right ui-icon-carat-r'>" + title + "</a></li>";
+                                output += "<li><a href='#' onclick=\"window.open('" + link + "', '_system')\" id='" + link + "' data-ajax='false' class='title'>" + title + "</a></li>";
                             
                             }
                             $('#results-ul').append( output );
@@ -64,57 +67,30 @@
                 });
              });
         </script>
-
-        <script type="text/javascript">
-            function RemoveBaseUrl(url) {
-            /*
-             * Replace base URL in given string, if it exists, and return the result.
-             *
-             * e.g. "http://localhost:8000/api/v1/blah/" becomes "/api/v1/blah/"
-             *      "/api/v1/blah/" stays "/api/v1/blah/"
-             */
-                var baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/;
-                var result = "";
-                var match = baseUrlPattern.exec(url);
-
-                if (match != null) {
-                    result = match[0];
-                }
-
-                if (result.length > 0) {
-                    url = url.replace(result, "");
-                }
-                return url;
-            }
-        </script>
     </head>
+
     <body>
-    <div data-role="page" data-theme="f" id="events-page">     
-        <div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
-            <h1>Splunk News</h1>       
-            <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
+    <div data-role="page" data-theme="a" id="events-page">     
+        <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
+            <h1>Splunk Events</h1>       
+            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown();">Menu</a>
         </div>
         
-            <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
-                    <h3>Menu</h3>
-                    <ul data-role='listview'>
-                    <li><a href='index.html' data-ajax="false">Home</a></li>
-                    <li><a href='search_reference.html' data-ajax="false">Search Cheat Sheet</a></li>
-                    <li><a href='answers.html' data-ajax="false">Splunk Answers</a></li>
-                    <li><a href='video.html' data-ajax="false">Splunk on Youtube</a></li>
-                    <li><a href='news.html' data-ajax="false">Splunk News</a></li>
-                    <!--<li><a href='' data-ajax="false" onclick="exit()">Exit</a></li>-->
-                    </ul>
-            </div>
+        <div id="menu">
 
-        <div  data-role="content" data-theme="f" id="results">
+        </div>
+        <script>
+            $( "#menu" ).load( "static/menu.html" );
+        </script>
+
+        <div  data-role="content" data-theme="a" id="results">
         <!-- The YQL statment will be assigned to src. -->
-            <ul data-role="listview" id="results-ul" data-theme="e">
+            <ul id="results-ul">
 
             </ul>
         </div>
 
-        <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
+        <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
      </div>

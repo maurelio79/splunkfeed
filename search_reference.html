@@ -28,9 +28,11 @@
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
         <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.3.min.css" />
         <link rel="stylesheet" href="themes/style.css" />
+
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
-        <script src="js/yui-min.js"></script>
+        <script src="js/custom.js"></script>
+        
         <script type="text/javascript">
             $(document).on('pageshow', function(event){
                 $.mobile.loading('show');  
@@ -57,31 +59,27 @@
     </head>
 
     <body>
-    <div data-role="page" data-theme="f" id="search-page">
-		<div data-role="header" data-theme="f" data-position="fixed" class="splunk-header">
+    <div data-role="page" data-theme="a" id="search-page">
+		<div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
            <h1>Search Cheat Sheet</h1>
-           <a href="#popupPanel" data-rel="popup" id="positionOrigin" data-transition="slidedown" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-right ui-icon-arrow-d-l ui-corner-all">Menu</a>
+            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown();">Menu</a>
         </div>
-            <div data-role="popup" id="popupPanel" data-corners="false" data-theme="f" data-shadow="false" data-tolerance="0,0">
-                    <h3>Menu</h3>
-                    <ul data-role='listview'>
-                    <li><a href='index.html' data-ajax="false">Home</a></li>
-                    <li><a href='search_reference.html' data-ajax="false">Search Cheat Sheet</a></li>
-                    <li><a href='answers.html' data-ajax="false">Splunk Answers</a></li>
-                    <li><a href='video.html' data-ajax="false">Splunk on Youtube</a></li>
-                    <li><a href='news.html' data-ajax="false">Splunk News</a></li>
-                    <!--<li><a href='' data-ajax="false" onclick="exit()">Exit</a></li>-->
-                    </ul>
-            </div>
+        
+        <div id="menu">
 
-        <div data-role="content" data-theme="f" id="results">
+        </div>
+        <script>
+            $( "#menu" ).load( "static/menu.html" );
+        </script>
+
+        <div data-role="content" data-theme="a" id="results">
         <!-- The YQL statment will be assigned to src. -->
             <div class="search_content">
 
             </div>
         </div>
 
-        <div data-role="footer" data-position="fixed" data-theme="f" class="splunk-footer">
+        <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
      </div>
