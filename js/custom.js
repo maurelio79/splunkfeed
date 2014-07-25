@@ -31,11 +31,19 @@ function RemoveBaseUrl(url) {
 
 /* Function to show the menu*/
 function menuKeyDown() {
-    var menu = $('#menu').css('display');
+    /*var menu = $('#menu').css('display');
         if (menu == 'none') {
             $("#menu").css('display', 'block');  
         } else {
             $("#menu").css('display', 'none');
+        }*/
+        var myclass = $("#menu").attr("class");
+        if (myclass == "show"){
+            $( "#menu" ).animate({ "right": "-=250px" }, "slow" );
+            $( "#menu" ).removeClass("show");    
+        } else {
+            $( "#menu" ).animate({ "right": "+=250px" }, "slow" );
+            $( "#menu" ).addClass("show");
         }
     }
 

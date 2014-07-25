@@ -25,7 +25,7 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <title>Splunk Blog</title>
 
-        <link rel="stylesheet" href="themes/splunk-feed.min.css" />
+        <link rel="stylesheet" href="themes/splunk-feed.css" />
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
         <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.3.min.css" />
         <link rel="stylesheet" href="themes/style.css" />
@@ -85,13 +85,14 @@
                 });
              });
         </script>
+
     </head>
 
     <body>
     <div data-role="page" data-theme="a" id="main-page">
         <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
-            <h1>Splunk Blog</h1>       
-            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown();">Menu</a>
+            <h1>Splunk Blog</h1>
+            <a href="#" id="button-menu" data-role="button" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";><img src="themes/images/icons-png/bars-white.png" /></a>
         </div>
 
         <div id="menu">
