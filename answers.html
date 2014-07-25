@@ -35,14 +35,30 @@
         <script src="js/custom.js"></script>
 
         <script type="text/javascript">
+          jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+              return function( elem ) {
+                return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+              };
+          });
+          
+          /* This is tu use to actually find and show stuff.
+          $( "li:Contains('splunk')" ).addClass( "foundit" );
+          $('li:not(.foundit, .ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d)').hide();
+          */
+        </script>
+   
+        <script type="text/javascript">
             $(document).on('pageshow', function(event){
-                $.mobile.loading('show');  
+                $.mobile.loading('show');
             })
             
             $(document).on('pageinit', '#answers-page', function(event){
+                category = window.sessionStorage.getItem("category");
+                $('.' + category).css('color','#333');
+                //$('.' + category).css('font-size','large');
                 $.ajax({
                     type: 'GET',
-                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3Dnewest%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json",
+                    url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3D" + category +"%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json",
 
                     dataType: 'json',
                     success: function(data) {
@@ -96,8 +112,29 @@
             </ul>
         </div>
 
-        <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
-            <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
+        <!-- <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
+          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Hottest</a>
+          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Most Voted</a>
+          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Newest</a>
+          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Unanswered</a>
+        </div> -->
+        <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
+          <div data-role="navbar">
+          <ul>
+          <li>
+          <a href="answers.html" data-ajax="false" class="newest" onclick="setAnswersCategory('#splunk-footer-answers');">Newest</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="hot" onclick="setAnswersCategory('#splunk-footer-answers');">Hottest</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="votes" onclick="setAnswersCategory('#splunk-footer-answers');">Most Voted</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="unanswered" onclick="setAnswersCategory('#splunk-footer-answers');">Unanswered</a>
+          </li>
+          </ul>
+          </div>
         </div>
      </div>
     <script type="text/javascript" src="cordova.js"></script>

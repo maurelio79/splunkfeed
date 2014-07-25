@@ -29,7 +29,7 @@ function RemoveBaseUrl(url) {
     return url;
 }
 
-/* Function tho show the menu*/
+/* Function to show the menu*/
 function menuKeyDown() {
     var menu = $('#menu').css('display');
         if (menu == 'none') {
@@ -39,9 +39,39 @@ function menuKeyDown() {
         }
     }
 
+/* Function to hide menu when clicked on screen */
 function pageKeyDown() {
     var menu = $('#menu').css('display');
         if (menu == 'block') {
             $("#menu").css('display', 'none');  
         }
     }
+
+/* Function to load category for answers page */
+function setAnswersCategory(id) {
+    $(id).on("click", "a", function(event, ui) {
+        var text = $(this).text();
+        //var text = $(this).attr("class");
+        switch(text){
+            case 'Splunk Answers':
+                category = 'newest';
+                break;
+            case 'Newest':
+                category = 'newest';
+                break;
+            case 'Hottest':
+                category = 'hot';
+                break;
+            case 'Most Voted':
+                category = 'votes';
+                break;
+            case 'Unanswered':
+                category = 'unanswered';
+                break;
+        }
+        
+        window.sessionStorage.setItem("category", category);
+        //window.location("answers.html");
+        //alert(id + " " + text + " " + category);
+    });
+}

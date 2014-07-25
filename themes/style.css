@@ -42,8 +42,11 @@ html, body {
 	word-wrap: break-word;
     }
 
-.question-body, .comments-container, .answer-body {
+.question-body, .question-body p, .question-body code, .question-body pre,
+.comments-container, .comments-container p, .comments-container code, .comments-container pre,
+.answer-body, .answer-body p, .answer-body code, .answer-body pre {
     word-wrap: break-word;
+    width: 95%;
 }
 
 .article_content h1, .article_content h2, .new_content h2, .new_content h1{
@@ -80,6 +83,10 @@ html, body {
 
 .splunk-footer {
 	height: 5px;
+}
+
+#splunk-footer-answers {
+    height: 32px;
 }
 
 #results {
@@ -176,6 +183,10 @@ ul#results-ul li a:hover, ul#results-ul ul li a:active {
     font-size: small;
     color: #333;
     padding-left: 2px;
+}
+
+.foundit {
+    /*background-image: -webkit-linear-gradient(left, #F7F748 0%, #BABA36 100%);*/
 }
 
 .search_content {

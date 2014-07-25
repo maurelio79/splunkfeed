@@ -41,7 +41,9 @@
             $(document).on('pageinit', '#answer-page', function(event){
                 title = window.sessionStorage.getItem("title");
                 temp_answer = window.sessionStorage.getItem("answer");
+                category = window.sessionStorage.getItem("category");
                 answer = temp_answer.replace("/", "%2F");
+                $('.' + category).css('color','#333');
                 $('#top-title').html(title);
                 $.ajax({
                     type: 'GET',
@@ -88,8 +90,23 @@
             </div>
         </div>
 
-        <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
-           <!-- <a href="#" data-transition="turn" class="ui-btn ui-shadow ui-nodisc-icon ui-btn-left ui-corner-all" onclick="window.history.back();">Back</a>-->
+    <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
+          <div data-role="navbar">
+          <ul>
+          <li>
+          <a href="answers.html" data-ajax="false" class="newest" onclick="setAnswersCategory('#splunk-footer-answers');">Newest</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="hot" onclick="setAnswersCategory('#splunk-footer-answers');">Hottest</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="votes" onclick="setAnswersCategory('#splunk-footer-answers');">Most Voted</a>
+          </li>
+          <li>
+          <a href="answers.html" data-ajax="false" class="unanswered" onclick="setAnswersCategory('#splunk-footer-answers');">Unanswered</a>
+          </li>
+          </ul>
+          </div>
         </div>
      </div>
     <script type="text/javascript" src="cordova.js"></script>
