@@ -9,6 +9,9 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
         };
 });
 
+$.event.special.swipe.horizontalDistanceThreshold = 30;
+$.event.special.swipe.durationThreshold = 1000;
+
 /* Function to exit the app*/
 function exit(){
     if (navigator.app) {
