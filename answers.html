@@ -24,8 +24,8 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>Splunk Feed</title>
-        <link rel="stylesheet" href="themes/splunk-feed.min.css" />
+        <title>Splunk It!</title>
+        <link rel="stylesheet" href="themes/splunk-feed.css" />
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
         <link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.3.min.css" />
         <link rel="stylesheet" href="themes/style.css" />
@@ -33,19 +33,6 @@
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/custom.js"></script>
-
-        <script type="text/javascript">
-          jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
-              return function( elem ) {
-                return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-              };
-          });
-          
-          /* This is tu use to actually find and show stuff.
-          $( "li:Contains('splunk')" ).addClass( "foundit" );
-          $('li:not(.foundit, .ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d)').hide();
-          */
-        </script>
    
         <script type="text/javascript">
             $(document).on('pageshow', function(event){
@@ -55,7 +42,6 @@
             $(document).on('pageinit', '#answers-page', function(event){
                 category = window.sessionStorage.getItem("category");
                 $('.' + category).css('color','#333');
-                //$('.' + category).css('font-size','large');
                 $.ajax({
                     type: 'GET',
                     url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22http%3A%2F%2Fanswers.splunk.com%2Fanswers%2F%3Fsort%3D" + category +"%22%20and%0A%20%20%20%20%20%20xpath%3D'%2F%2Fdiv%5B%40class%3D%22question-summary-wrapper%22%5D%2Fh2%2Fa'&format=json",
@@ -95,7 +81,7 @@
        
         <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
             <h1>Splunk Answers</h1>       
-            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown();">Menu</a>
+            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";>MENU</a>
         </div>
         
         <div id="menu">
@@ -112,12 +98,6 @@
             </ul>
         </div>
 
-        <!-- <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
-          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Hottest</a>
-          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Most Voted</a>
-          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Newest</a>
-          <a href="answers.html" data-ajax="false" onclick="setAnswersCategory('#splunk-footer-answers');">Unanswered</a>
-        </div> -->
         <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
           <div data-role="navbar">
           <ul>

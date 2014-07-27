@@ -23,7 +23,7 @@
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>Splunk Blog</title>
+        <title>Splunk It!</title>
 
         <link rel="stylesheet" href="themes/splunk-feed.css" />
         <link rel="stylesheet" type="text/css" href="themes/jquery.mobile.icons.min.css">
@@ -34,13 +34,8 @@
         <script src="js/jquery.mobile-1.4.3.min.js"></script>
         <script src="js/custom.js"></script>
 
-        <script type="text/javascript">        
-
-        </script>
-
         <script type="text/javascript">
             $(document).on('pageshow', function(event){
-                //console.log(navigator.connection.type);
                 $.mobile.loading('show');  
             })
             
@@ -92,7 +87,7 @@
     <div data-role="page" data-theme="a" id="main-page">
         <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
             <h1>Splunk Blog</h1>
-            <a href="#" id="button-menu" data-role="button" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";><img src="themes/images/icons-png/bars-white.png" /></a>
+            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";>MENU</a>
         </div>
 
         <div id="menu">
@@ -102,7 +97,7 @@
             $( "#menu" ).load( "static/menu.html" );
         </script>
 
-        <div  data-role="content" data-theme="a" id="results" onclick="pageKeyDown()";>
+        <div data-role="content" data-theme="a" id="results" onclick="pageKeyDown();">
             
         </div>
 
@@ -110,11 +105,6 @@
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
         </div>
      </div>
-    <script>
-              $("#main-page").swipe(function() {
-                location.reload(true);
-              });
-    </script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">

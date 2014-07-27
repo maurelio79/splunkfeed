@@ -1,3 +1,14 @@
+/*
+Extend JQuery contains to JQuery Contains
+to avoid sensitive search
+*/
+
+jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+    return function( elem ) {
+        return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+});
+
 /* Function to exit the app*/
 function exit(){
     if (navigator.app) {
@@ -49,9 +60,15 @@ function menuKeyDown() {
 
 /* Function to hide menu when clicked on screen */
 function pageKeyDown() {
-    var menu = $('#menu').css('display');
+    /*var menu = $('#menu').css('display');
         if (menu == 'block') {
             $("#menu").css('display', 'none');  
+        }*/
+
+    var myclass = $("#menu").attr("class");
+        if (myclass == "show"){
+            $( "#menu" ).animate({ "right": "-=250px" }, "slow" );
+            $( "#menu" ).removeClass("show");    
         }
     }
 
@@ -79,7 +96,5 @@ function setAnswersCategory(id) {
         }
         
         window.sessionStorage.setItem("category", category);
-        //window.location("answers.html");
-        //alert(id + " " + text + " " + category);
     });
 }

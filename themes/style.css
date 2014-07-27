@@ -1,8 +1,8 @@
 /*
-select * from html where url="https://www.splunk.com/page/events" and
-      xpath='//div[@id="articleColumn"]/h2/a'
+
 */
 
+/* General style */
 @font-face {
   font-family: 'Droid Sans';
   font-style: normal;
@@ -20,12 +20,35 @@ select * from html where url="https://www.splunk.com/page/events" and
 
 html, body {
     background-color: #fff;
-    height: 100%;
+    /*height: 100%;*/
+    overflow: auto;
 }
 
+/*
 .ui-grid-solo { text-align: center; }
 
 .ui-grid-solo img { border: 1px solid #f7931e; }
+*/
+
+/* Common style*/
+
+.splunk-header {
+    height: 42px;
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8BD674), color-stop(1, #5A8B4B));
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-linear-gradient(top, #8BD674 0%, #5A8B4B 100%);
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.splunk-footer {
+    height: 5px;
+    -webkit-box-shadow: 0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+}
 
 .rss_content, .article_content, .video_content, .answer_content, .new_content {
 	width: 97%;
@@ -43,77 +66,22 @@ html, body {
 	word-wrap: break-word;
     }
 
-.question-body, .question-body p, .question-body code, .question-body pre,
-.comments-container, .comments-container p, .comments-container code, .comments-container pre,
-.answer-body, .answer-body p, .answer-body code, .answer-body pre {
-    word-wrap: break-word;
-    width: 95%;
-}
-
-.article_content h1, .article_content h2, .new_content h2, .new_content h1{
-    color: #5a8b4b;
-    font-size: large;
-    margin: 5px;
-    margin-left: 0;
-}
-
-.article_content h3, .rss_content h3, .new_content h3{
-    color: #5a8b4b;
-    font-size: medium;
-    margin: 5px;
-    margin-left: 0;
-}
-
-.search_content table {
-    margin-bottom: 5px;
-}
-
-.category {
-    font-size: small;
-    color: #5a8b4b;
-    font-style: italic;
-}
-
-.splunk-header {
-	height: 42px;
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8BD674), color-stop(1, #5A8B4B));
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-linear-gradient(top, #8BD674 0%, #5A8B4B 100%);
-    -webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         0px 5px 5px 0px rgba(50, 50, 50, 0.75);
-}
-
-.splunk-footer {
-	height: 5px;
-    -webkit-box-shadow: 0px -5px 5px 0px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    0px -5px 5px 0px rgba(50, 50, 50, 0.75);
-box-shadow:         0px -5px 5px 0px rgba(50, 50, 50, 0.75);
-}
-
-#splunk-footer-answers {
-    height: 32px;
-    -webkit-box-shadow: 0px -5px 5px 0px rgba(50, 50, 50, 0.75);
--moz-box-shadow:    0px -5px 5px 0px rgba(50, 50, 50, 0.75);
-box-shadow:         0px -5px 5px 0px rgba(50, 50, 50, 0.75);
-}
-
 #results {
     padding: 5px;
 }
 
 h3.splunk-title {
-	text-align: center;
+    text-align: center;
 }
 
 div#main-page {
     height: 100%;
 }
+
 div#menu {
     position: fixed;
     top: 42px;
-    right: -270px;
+    right: -260px;
     width: 250px;
     height: 100%;
     margin: auto;
@@ -131,7 +99,7 @@ div#menu {
 
 div#menu ul {
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 div#menu ul li {
@@ -140,6 +108,10 @@ div#menu ul li {
     height: 3em;
     line-height: 3em;
     border-bottom: 1px solid #7BA05B;
+    /*background-image: url("images/icons-png/carat-r-black.png");
+    background-repeat: no-repeat;
+    background-position: 0px 1em; 
+    padding-left: 14px;*/
 }
 
 div#menu ul li.last {
@@ -153,7 +125,6 @@ div#menu ul li a:link, div#menu ul li a:visited {
     text-decoration: none;
     font-size: small;
     padding-left: 2px;
-    
 }
 
 div#menu ul li a:hover, div#menu ul li a:active {
@@ -165,6 +136,27 @@ div#menu ul li a:hover, div#menu ul li a:active {
     font-size: small;
     color: #333;
     padding-left: 2px;
+}
+
+div#box-search {
+    width: 70%;
+    height: auto;
+    margin-top: 2em;
+}
+
+div#box-search input {
+    width: 70%;
+    height: 1em;
+    border: 1px solid #8BD674;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 25px;
+    background: url('images/icons-png/search-black.png') no-repeat left center;
+}
+
+.foundit {
+    background-color: #ADFF2F;
 }
 
 ul#results-ul {
@@ -201,21 +193,6 @@ ul#results-ul li a:hover, ul#results-ul ul li a:active {
     padding-left: 2px;
 }
 
-.foundit {
-    /*background-image: -webkit-linear-gradient(left, #F7F748 0%, #BABA36 100%);*/
-}
-
-.search_content {
-    word-wrap: break-word;;
-    
-}
-
-.search_content td {
-    padding: 5px;
-    border: 1px solid #5a8b4b;
-    
-}
-
 .ui-loader-default h1 {
     color: #5a8b4b;
     font-size: large;
@@ -238,4 +215,57 @@ ul#results-ul li a:hover, ul#results-ul ul li a:active {
     padding: 5px;
     border: 2px solid #222;
 
+}
+
+.article_content h1, .article_content h2, .new_content h2, .new_content h1{
+    color: #5a8b4b;
+    font-size: large;
+    margin: 5px;
+    margin-left: 0;
+}
+
+.article_content h3, .rss_content h3, .new_content h3{
+    color: #5a8b4b;
+    font-size: medium;
+    margin: 5px;
+    margin-left: 0;
+}
+
+.category {
+    font-size: small;
+    color: #5a8b4b;
+    font-style: italic;
+}
+
+/* Specific for answers pages. */
+
+.question-body, .question-body p, .question-body code, .question-body pre,
+.comments-container, .comments-container p, .comments-container code, .comments-container pre,
+.answer-body, .answer-body p, .answer-body code, .answer-body pre {
+    word-wrap: break-word;
+    width: 95%;
+}
+
+#splunk-footer-answers {
+    height: 32px;
+    -webkit-box-shadow: 0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px -5px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+/* Specific for search sheet page */
+
+.search_content {
+    word-wrap: break-word;;
+    
+}
+
+.search_content table {
+    margin-bottom: 5px;
+}
+
+.search_content td {
+    padding: 5px;
+    border: 1px solid #5a8b4b;
+    
 }
