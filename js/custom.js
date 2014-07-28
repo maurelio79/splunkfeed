@@ -10,7 +10,7 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
 });
 
 /*
-Extend swipe function
+Extend swipe function to avoid bug with phonegap
 */
 
 $.extend($.event.special.swipe,{
@@ -58,7 +58,7 @@ function menuKeyDown() {
             $("#menu").css('display', 'block');  
         } else {
             $("#menu").css('display', 'none');
-        }*/
+        }
         var myclass = $("#menu").attr("class");
         if (myclass == "show"){
             $( "#menu" ).animate({ "right": "-=250px" }, "slow" );
@@ -66,7 +66,7 @@ function menuKeyDown() {
         } else {
             $( "#menu" ).animate({ "right": "+=250px" }, "slow" );
             $( "#menu" ).addClass("show");
-        }
+        }*/
     }
 
 /* Function to hide menu when clicked on screen */
@@ -74,13 +74,13 @@ function pageKeyDown() {
     /*var menu = $('#menu').css('display');
         if (menu == 'block') {
             $("#menu").css('display', 'none');  
-        }*/
+        }
 
     var myclass = $("#menu").attr("class");
         if (myclass == "show"){
             $( "#menu" ).animate({ "right": "-=250px" }, "slow" );
             $( "#menu" ).removeClass("show");    
-        }
+        }*/
     }
 
 /* Function to load category for answers page */

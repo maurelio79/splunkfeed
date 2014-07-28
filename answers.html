@@ -74,10 +74,6 @@
                 });
              });
         </script>
-
-    <style type="text/css">
-        
-    </style>
     </head>
 
     <body>
@@ -85,15 +81,8 @@
        
         <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
             <h1>Splunk Answers</h1>       
-            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";>MENU</a>
+            <a href="#menu" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b">MENU</a>
         </div>
-        
-        <div id="menu">
-
-        </div>
-        <script>
-            $( "#menu" ).load( "static/menu.html" );
-        </script>
 
         <div  data-role="content" data-theme="a" id="results" onclick="pageKeyDown()";>
         <!-- The YQL statment will be assigned to src. -->
@@ -101,6 +90,13 @@
 
             </ul>
         </div>
+
+        <div id="menu" data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay">
+            <!-- Menu dinamically loaded -->
+        </div>
+        <script>
+            $( "#menu" ).load( "static/menu.html" );
+        </script>
 
         <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
           <div data-role="navbar">

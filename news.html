@@ -78,15 +78,8 @@
     <div data-role="page" data-theme="a" id="news-page">     
         <div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
             <h1>Splunk News</h1>       
-            <a href="#" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b" onclick="menuKeyDown()";>MENU</a>
+            <a href="#menu" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b">MENU</a>
         </div>
-        
-        <div id="menu">
-
-        </div>
-        <script>
-            $( "#menu" ).load( "static/menu.html" );
-        </script>
 
         <div  data-role="content" data-theme="a" id="results">
         <!-- The YQL statment will be assigned to src. -->
@@ -94,6 +87,13 @@
 
             </ul>
         </div>
+
+        <div id="menu" data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay">
+            <!-- Menu dinamically loaded -->
+        </div>
+        <script>
+            $( "#menu" ).load( "static/menu.html" );
+        </script>
 
         <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
             <!--<a href="http://www.splunk.com/" target="_blank">Splunk Web Site</a>-->
