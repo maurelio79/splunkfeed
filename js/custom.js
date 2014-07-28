@@ -9,8 +9,16 @@ jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
         };
 });
 
-$.event.special.swipe.horizontalDistanceThreshold = 30;
-$.event.special.swipe.durationThreshold = 1000;
+/*
+Extend swipe function
+*/
+
+$.extend($.event.special.swipe,{
+  scrollSupressionThreshold: 10, // More than this horizontal displacement, and we will suppress scrolling.
+  durationThreshold: 3000, // More time than this, and it isn't a swipe.
+  horizontalDistanceThreshold: 50,  // Swipe horizontal displacement must be more than this.
+  verticalDistanceThreshold: 45,  // Swipe vertical displacement must be less than this.
+});
 
 /* Function to exit the app*/
 function exit(){
