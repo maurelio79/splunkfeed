@@ -72,6 +72,7 @@
     <body>
     <div data-role="page" data-theme="a" id="answer-page">
 		<div data-role="header" data-theme="a" data-position="fixed" class="splunk-header">
+          <a href="#submenu" id="button-submenu" class="ui-btn-left ui-shadow ui-corner-all" data-theme="b"></a>
           <h1 id="top-title"></h1>
           <a href="#menu" id="button-menu" class="ui-btn-right ui-shadow ui-corner-all" data-theme="b"></a>
         </div>
@@ -90,25 +91,27 @@
             $( "#menu" ).load( "static/menu.html" );
         </script>
 
-    <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer" id="splunk-footer-answers">
-          <div data-role="navbar">
-          <ul>
-          <li>
-          <a href="answers.html" data-ajax="false" class="newest" onclick="setAnswersCategory('#splunk-footer-answers');">Newest</a>
+        <div id="submenu" data-role="panel" data-position="left" data-position-fixed="true">
+        <ul id="submenu-ul">
+          <li class="first">
+          <a href="answers.html" data-ajax="false" class="newest" onclick="setAnswersCategory('#submenu');">Newest</a>
           </li>
           <li>
-          <a href="answers.html" data-ajax="false" class="hot" onclick="setAnswersCategory('#splunk-footer-answers');">Hottest</a>
+          <a href="answers.html" data-ajax="false" class="hot" onclick="setAnswersCategory('#submenu');">Hottest</a>
           </li>
           <li>
-          <a href="answers.html" data-ajax="false" class="votes" onclick="setAnswersCategory('#splunk-footer-answers');">Most Voted</a>
+          <a href="answers.html" data-ajax="false" class="votes" onclick="setAnswersCategory('#submenu');">Most Voted</a>
           </li>
           <li>
-          <a href="answers.html" data-ajax="false" class="unanswered" onclick="setAnswersCategory('#splunk-footer-answers');">Unanswered</a>
+          <a href="answers.html" data-ajax="false" class="unanswered" onclick="setAnswersCategory('#submenu');">Unanswered</a>
           </li>
-          </ul>
-          </div>
+        </ul>
         </div>
+
+    <div data-role="footer" data-position="fixed" data-theme="a" class="splunk-footer">
+         
      </div>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
