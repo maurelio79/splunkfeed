@@ -461,8 +461,12 @@ html body .ui-group-theme-b .ui-btn:visited,
 html head + body .ui-btn.ui-btn-b:visited {
 	background: none;
 	border: none;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 	text-shadow: 0 /*{b-bup-shadow-x}*/ 1px /*{b-bup-shadow-y}*/ 0 /*{b-bup-shadow-radius}*/ #f3f3f3 /*{b-bup-shadow-color}*/;
-
 }
 /* Button hover */
 .ui-page-theme-b .ui-btn:hover,
@@ -473,6 +477,11 @@ html head + body .ui-btn.ui-btn-b:hover {
 	background-color: #8BD674 /*{b-bhover-background-color}*/;
 	border: none /*{b-bhover-border}*/;
 	color: #fff /*{b-bhover-color}*/;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 	text-shadow: 0 /*{b-bhover-shadow-x}*/ 1px /*{b-bhover-shadow-y}*/ 0 /*{b-bhover-shadow-radius}*/ #f3f3f3 /*{b-bhover-shadow-color}*/;
 }
 /* Button down */
@@ -483,6 +492,11 @@ html body .ui-group-theme-b .ui-btn:active,
 html head + body .ui-btn.ui-btn-b:active {
 	background-color: #8BD674 /*{b-bdown-background-color}*/;
 	color: #fff /*{b-bdown-color}*/;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 	text-shadow: 0 /*{b-bdown-shadow-x}*/ 1px /*{b-bdown-shadow-y}*/ 0 /*{b-bdown-shadow-radius}*/ #f3f3f3 /*{b-bdown-shadow-color}*/;
 }
 /* Active button */
@@ -510,6 +524,11 @@ html .ui-body-b .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-b .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-b .ui-btn-active {
 	background: none /*{b-active-background-color}*/;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-right: 5px;
+	margin-left: 5px;
 	color: #ffffff /*{b-active-color}*/;
 	text-shadow: 0 /*{b-active-shadow-x}*/ 1px /*{b-active-shadow-y}*/ 0 /*{b-active-shadow-radius}*/ #005599 /*{b-active-shadow-color}*/;
 }
